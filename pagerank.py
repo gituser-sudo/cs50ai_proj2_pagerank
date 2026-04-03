@@ -155,6 +155,13 @@ def iterate_pagerank(corpus, damping_factor):
                 new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
         keep_going = False
+        // check if they add up to 1
+        sum_prob = 0
+
+        for key in corpus.keys():
+            sum_prob = sum_prob + new_page_rank[key]
+        print(sum_prob)
+
         for key in corpus.keys():
             if new_page_rank[key] - page_rank[key] > 0.001:
                 keep_going = True
