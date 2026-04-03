@@ -95,6 +95,7 @@ def sample_pagerank(corpus, damping_factor, n):
     for key in corpus.keys():
         page_count[key] = 0
 
+    rand = random.random()
     
 
 
