@@ -115,7 +115,12 @@ def sample_pagerank(corpus, damping_factor, n):
             sel_index = int(rand * no_of_pages)
             page = corpus.keys[sel_index]
             page_count[page] = page_count[page] + 1
-            
+
+
+    for page in page_count.keys():
+        page_count[page] = page_count[page] / (n+1)
+
+    return page_count
 
 
 def iterate_pagerank(corpus, damping_factor):
@@ -127,7 +132,8 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    while(true):
+        
 
 
 if __name__ == "__main__":
