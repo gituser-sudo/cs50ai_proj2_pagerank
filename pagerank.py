@@ -141,7 +141,10 @@ def iterate_pagerank(corpus, damping_factor):
 
     while(true):
         for key in corpus.keys():
-            page_rank[key] = (1 - damping_factor) / no_of_pages + damping_factor * 
+            link_contrib = 0
+            for page in corpus[key]
+                link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[key])
+            page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
 
 
