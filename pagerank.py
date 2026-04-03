@@ -92,7 +92,10 @@ def sample_pagerank(corpus, damping_factor, n):
     page_count = map()
 
     no_of_pages = len(corpus.keys())
+    for key in corpus.keys():
+        page_count[key] = 0
 
+    
 
 
 def iterate_pagerank(corpus, damping_factor):
