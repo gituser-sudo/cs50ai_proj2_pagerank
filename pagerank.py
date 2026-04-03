@@ -103,7 +103,9 @@ def sample_pagerank(corpus, damping_factor, n):
 
     // starting from page
 
-    for i
+    for i in range(n):
+        rand = random.random()
+        if rand < damping_factor
 
 
 def iterate_pagerank(corpus, damping_factor):
