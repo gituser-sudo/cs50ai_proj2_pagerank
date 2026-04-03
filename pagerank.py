@@ -132,8 +132,17 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
+
+    page_rank = map()
+
+    no_of_pages = len(corpus.keys())
+    for key in corpus.keys():
+        page_rank[key] = 1 / no_of_pages
+
     while(true):
-        
+        for key in corpus.keys():
+            page_rank[key] = 1 / no_of_pages
+
 
 
 if __name__ == "__main__":
