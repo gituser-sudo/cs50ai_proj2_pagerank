@@ -62,7 +62,7 @@ def transition_model(corpus, page, damping_factor):
     no_of_pages = len(corpus.keys())
 
 
-    common_prob = damping_factor / no_of_pages
+    common_prob = (1 - damping_factor) / no_of_pages
 
     if(len(corpus[page]) == 0):
         common_prob = 1 / no_of_pages
@@ -73,7 +73,7 @@ def transition_model(corpus, page, damping_factor):
 
     no_of_links = len(corpus[page])
     for link in corpus[page]:
-        page_prob = (1-damping_factor)/no_of_links
+        page_prob = (damping_factor)/no_of_links
         trans_prob[link] = trans_prob[link] + page_prob
 
     return trans_prob
@@ -88,7 +88,11 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    
+
+    page_count = map()
+
+    no_of_pages = len(corpus.keys())
+
 
 
 def iterate_pagerank(corpus, damping_factor):
