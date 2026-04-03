@@ -57,23 +57,21 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    trans_prob = map()
+    trans_prob = {}
 
     no_of_pages = len(corpus.keys())
 
-
     common_prob = (1 - damping_factor) / no_of_pages
 
-    if(len(corpus[page]) == 0):
+    if (len(corpus[page]) == 0):
         common_prob = 1 / no_of_pages
-
 
     for key in corpus.keys():
         trans_prob[key] = common_prob
 
     no_of_links = len(corpus[page])
     for link in corpus[page]:
-        page_prob = (damping_factor)/no_of_links
+        page_prob = (damping_factor) / no_of_links
         trans_prob[link] = trans_prob[link] + page_prob
 
     return trans_prob
@@ -89,7 +87,7 @@ def sample_pagerank(corpus, damping_factor, n):
     PageRank values should sum to 1.
     """
 
-    page_count = map()
+    page_count = {}
 
     no_of_pages = len(corpus.keys())
     for key in corpus.keys():
@@ -97,28 +95,27 @@ def sample_pagerank(corpus, damping_factor, n):
 
     rand = random.random()
     sel_index = int(rand * no_of_pages)
-    page = corpus.keys[sel_index]
+    page = list(corpus.keys())[sel_index]
 
     page_count[page] = page_count[page] + 1
 
-    // starting from page
+    # starting from page
 
     for i in range(n):
         rand = random.random()
-        if rand < damping_factor
+        if rand < damping_factor:
             no_of_links = len(corpus[page])
             sel_index = int(random.random() * no_of_links)
-            page = corpus[page][sel_index]
+            page = list(corpus[page])[sel_index]
             page_count[page] = page_count[page] + 1
         else:
             rand = random.random()
             sel_index = int(rand * no_of_pages)
-            page = corpus.keys[sel_index]
+            page = list(corpus.keys())[sel_index]
             page_count[page] = page_count[page] + 1
 
-
     for page in page_count.keys():
-        page_count[page] = page_count[page] / (n+1)
+        page_count[page] = page_count[page] / (n + 1)
 
     return page_count
 
@@ -133,25 +130,25 @@ def iterate_pagerank(corpus, damping_factor):
     PageRank values should sum to 1.
     """
 
-    page_rank = map()
-    new_page_rank = map()
+    page_rank = {}
+    new_page_rank = {}
 
     no_of_pages = len(corpus.keys())
     for key in corpus.keys():
         page_rank[key] = 1 / no_of_pages
 
-    keep_going = true
-    while(keep_going):
+    keep_going = True
+    while (keep_going):
         for key in corpus.keys():
             link_contrib = 0
             for page in corpus[key]:
                 link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[key])
             new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
-        keep_going = false
-        for key in corpus_keys():
-            if new_page_rank[key] - page_rank[key] > 0.001
-                keep_going = true
+        keep_going = False
+        for key in corpus.keys():
+            if new_page_rank[key] - page_rank[key] > 0.001:
+                keep_going = True
 
     return new_page_rank
 
