@@ -106,6 +106,16 @@ def sample_pagerank(corpus, damping_factor, n):
     for i in range(n):
         rand = random.random()
         if rand < damping_factor
+            no_of_links = len(corpus[page])
+            sel_index = int(random.random() * no_of_links)
+            page = corpus[page][sel_index]
+            page_count[page] = page_count[page] + 1
+        else:
+            rand = random.random()
+            sel_index = int(rand * no_of_pages)
+            page = corpus.keys[sel_index]
+            page_count[page] = page_count[page] + 1
+            
 
 
 def iterate_pagerank(corpus, damping_factor):
