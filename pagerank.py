@@ -96,7 +96,7 @@ def sample_pagerank(corpus, damping_factor, n):
         page_count[key] = 0
 
     rand = random.random()
-    ran
+    rand * no_of_pages
 
 
 def iterate_pagerank(corpus, damping_factor):
