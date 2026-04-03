@@ -140,14 +140,20 @@ def iterate_pagerank(corpus, damping_factor):
     for key in corpus.keys():
         page_rank[key] = 1 / no_of_pages
 
-    while(true):
+    keep_going = true
+    while(keep_going):
         for key in corpus.keys():
             link_contrib = 0
-            for page in corpus[key]
+            for page in corpus[key]:
                 link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[key])
             new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
+        keep_going = false
+        for key in corpus_keys():
+            if new_page_rank[key] - page_rank[key] > 0.001
+                keep_going = true
 
+    return new_page_rank
 
 if __name__ == "__main__":
     main()
