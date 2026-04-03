@@ -105,7 +105,7 @@ def sample_pagerank(corpus, damping_factor, n):
         rand = random.random()
         if rand < damping_factor:
             no_of_links = len(corpus[page])
-            if no_of_links == 0
+            if no_of_links == 0:
                 rand = random.random()
                 sel_index = int(rand * no_of_pages)
                 page = list(corpus.keys())[sel_index]
