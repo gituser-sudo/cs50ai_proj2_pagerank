@@ -184,7 +184,7 @@ def iterate_pagerank(corpus, damping_factor):
                     # so denominator becomnes no of pages
                     no_outgoing_links = len(corpus[page])
                     if len(corpus[page]) == 0:
-                        no_outgoing_links = 100000
+                        no_outgoing_links = 5
 
                     link_contrib = link_contrib + damping_factor * page_rank[page] / no_outgoing_links
                 new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
