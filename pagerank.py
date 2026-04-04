@@ -8,9 +8,11 @@ SAMPLES = 10000
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python pagerank.py corpus")
-    corpus = crawl(sys.argv[1])
+    # if len(sys.argv) != 2:
+    #     sys.exit("Usage: python pagerank.py corpus")
+    # corpus = crawl(sys.argv[1])
+    # if corpus is None:
+    corpus = {'1': {'2'}, '2': {'1', '3'}, '3': {'4', '2'}, '4': {'2'}}
     ranks = sample_pagerank(corpus, DAMPING, SAMPLES)
     print(f"PageRank Results from Sampling (n = {SAMPLES})")
     for page in sorted(ranks):
@@ -139,34 +141,56 @@ def iterate_pagerank(corpus, damping_factor):
     page_rank = {}
     new_page_rank = {}
 
+    from_page = {}
+    # convert corpus to from links
+
+    everybody_gets = []
+    for key in corpus.keys():
+        from_page[key] = set()
+        if len(corpus[key]) == 0:
+            everybody_gets.append(key)
+
+    for key in corpus.keys():
+        for page in everybody_gets:
+            from_page[key].add(page)
+
+    for key in corpus.keys():
+        for page in corpus[key]:
+            from_page[page].add(key)
+
+
     no_of_pages = len(corpus.keys())
     for key in corpus.keys():
         page_rank[key] = 1 / no_of_pages
 
     keep_going = True
     while (keep_going):
-        for key in corpus.keys():
+        for key in from_page.keys():
             link_contrib = 0
-            if(len(corpus[key]) == 0):
+            if(len(from_page[key]) == 0):
                 new_page_rank[key] = 1 / no_of_pages
             else:
-                for page in corpus[key]:
-                    link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[key])
+                for page in from_page[key]:
+                    link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[page])
                 new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
         keep_going = False
         # check if they add up to 1
         sum_prob = 0
 
-        for key in corpus.keys():
+        for key in from_page.keys():
             sum_prob = sum_prob + new_page_rank[key]
         print(sum_prob)
 
-        for key in corpus.keys():
+        for key in from_page.keys():
             if new_page_rank[key] - page_rank[key] > 0.001:
                 keep_going = True
 
-    return new_page_rank
+        # copy from new_page_rank to page_rank
+        for key in new_page_rank.keys():
+            page_rank[key] = new_page_rank[key]
+
+    return page_rank
 
 if __name__ == "__main__":
     main()
