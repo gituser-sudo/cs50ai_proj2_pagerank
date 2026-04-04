@@ -172,7 +172,7 @@ def iterate_pagerank(corpus, damping_factor):
     while (keep_going):
         for key in from_page.keys():
             link_contrib = 0
-            if(len(from_page[key]) == 0):
+            if(len(corpus[key]) == 0):
                 new_page_rank[key] = 1 / no_of_pages
             else:
                 for page in from_page[key]:
