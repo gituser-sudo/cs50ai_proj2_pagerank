@@ -172,22 +172,20 @@ def iterate_pagerank(corpus, damping_factor):
     while (keep_going):
         for key in from_page.keys():
             link_contrib = 0
-            if(len(corpus[key]) == 0):
-                new_page_rank[key] = 1 / no_of_pages
-            else:
-                for page in from_page[key]:
-                    # not denominator is the  # of links from the source page. less the number higher
-                    # the destination page rank. also the numerator -> higher the soure page rank -> higher
-                    # Not also we switch back to corpus[page] since here we need # of outgoing links on page
-                    # not the incoming links
-                    # if len(corpus[page]) = 0 ie no outgoing links then we take it as going to all pages including itself
-                    # so denominator becomnes no of pages
-                    no_outgoing_links = len(corpus[page])
-                    if len(corpus[page]) == 0:
-                        link_contrib = link_contrib + damping_factor * 1 / no_of_pages
-                    else:
-                        link_contrib = link_contrib + damping_factor * page_rank[page] / no_outgoing_links
-                new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
+
+            for page in from_page[key]:
+                # not denominator is the  # of links from the source page. less the number higher
+                # the destination page rank. also the numerator -> higher the soure page rank -> higher
+                # Not also we switch back to corpus[page] since here we need # of outgoing links on page
+                # not the incoming links
+                # if len(corpus[page]) = 0 ie no outgoing links then we take it as going to all pages including itself
+                # so denominator becomnes no of pages
+                no_outgoing_links = len(corpus[page])
+                if len(corpus[page]) == 0:
+                    link_contrib = link_contrib + damping_factor * 1 / no_of_pages
+                else:
+                    link_contrib = link_contrib + damping_factor * page_rank[page] / no_outgoing_links
+            new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
         keep_going = False
         # check if they add up to 1
