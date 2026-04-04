@@ -141,8 +141,13 @@ def iterate_pagerank(corpus, damping_factor):
     page_rank = {}
     new_page_rank = {}
 
-    from_page = {}
+
     # convert corpus to from links
+    # this is needed since corpus gives the source -> target links as a map
+    # what you need is for every target page the source pages it is linked from
+    # from_page is this target - source mapping from  the source to target mapping
+    from_page = {}
+
 
     everybody_gets = []
     for key in corpus.keys():
