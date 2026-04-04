@@ -180,7 +180,13 @@ def iterate_pagerank(corpus, damping_factor):
                     # the destination page rank. also the numerator -> higher the soure page rank -> higher
                     # Not also we switch back to corpus[page] since here we need # of outgoing links on page
                     # not the incoming links
-                    link_contrib = link_contrib + damping_factor * page_rank[page] / len(corpus[page])
+                    # if len(corpus[page]) = 0 ie no outgoing links then we take it as going to all pages including itself
+                    # so denominator becomnes no of pages
+                    no_outgoing_links = len(corpus[page])
+                    if len(corpus[page]) == 0:
+                        no_outgoing_links = no_of_pages
+
+                    link_contrib = link_contrib + damping_factor * page_rank[page] / no_outgoing_links
                 new_page_rank[key] = (1 - damping_factor) / no_of_pages + link_contrib
 
         keep_going = False
